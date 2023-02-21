@@ -1,3 +1,6 @@
+# Code for LUIT W15 Foundational
+# Prints time in UTC
+# Works in CLoud9, does not work in Lambda (need to include pytz package)
 import boto3
 import datetime 
 import time
