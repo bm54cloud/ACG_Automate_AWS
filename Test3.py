@@ -1,22 +1,13 @@
-#lambda function
-
-import json
 import boto3
-from datetime import datetime
 
+sqs = boto3.client('sqs', region_name = 'us-east-2')
 
-def lambda_handler(event, context):
-    # TODO implement
-    now = datetime.now()
-    date_time = now.strftime("%m-%d-%y %H:%M:%S")
-    
-    sqs = boto3.client('sqs')
-    
-    response = sqs.send_message(
-        QueueUrl='https://sqs.us-west-2.amazonaws.com/542986597955/luitw15-queue',
-        Messagebody=time_date)
-    return {
-        'statusCode': 200,
-        'body': json.dumps('Hello from Lambda!')
-    }
-    
+response = sqs.receive_message(
+    QueueUrl='https://sqs.us-east-2.amazonaws.com/925367513330/W15_SQS'
+)
+
+messages = response['Messages']
+
+for message in messages:
+    data = message['Body']
+    print(data)

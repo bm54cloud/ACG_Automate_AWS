@@ -1,4 +1,4 @@
-# Import libraries
+# Import SDK and libraries
 import boto3
 import datetime 
 import time
