@@ -1,24 +1,24 @@
-import boto3
-import datetime 
-from datetime import timedelta
 import json
+import boto3
 
 
-#utc_ts = datetime.datetime.now().timestamp()
-#print(utc_ts)
-#utc_hr = time.ctime(utc_ts)
-#print(utc_hr)
-mst = datetime.datetime.today() - timedelta(hours=7)
-print()
+# Get SNS client and adjust region as needed
+sns = boto3.client('sns', region_name = 'us-east-2')
 
 def lambda_handler(event, context):
-    mst = datetime.datetime.today() - timedelta(hours=7)
-    sqs = boto3.client('sqs', region_name = 'us-east-2')
-    sqs.send_message(
-        QueueUrl = "https://sqs.us-east-2.amazonaws.com/925367513330/W15_SQS",
-        MessageBody = mst)
+    for record in event['Records']:
+        print(record)
+        response = record['body']
+        print(response)
+        
+        pub_mess = sns.publish(
+            TopicArn = 'arn:aws:sns:us-east-2:925367513330:W15_SNS_topic', 
+            Message = response)
+        print(pub_mess)  # This will print to CloudWatch
+    
+    else:
+        print('No messages in the queue')
     return {
         'statusCode': 200,
-        'body': json.dumps(mst)
-        }
-        
+        'body': json.dumps('')
+    }
