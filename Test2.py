@@ -9,7 +9,7 @@ import json
 #utc_hr = time.ctime(utc_ts)
 #print(utc_hr)
 mst = datetime.datetime.today() - timedelta(hours=7)
-print(mst)
+print()
 
 def lambda_handler(event, context):
     mst = datetime.datetime.today() - timedelta(hours=7)
